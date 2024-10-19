@@ -1,0 +1,27 @@
+img{
+    width:150px;
+    height:200px;
+    padding-left: 5PX;
+    border-radius: 2000px;
+    }
+    
+a {
+    color: rgb(188, 38, 108);
+}
+
+#About {
+    color: rgb(131, 39, 157);
+    font-family: Roboto;
+    
+   }
+
+body{
+    /* align-items: center; */
+    text-align: center;
+    /* margin: auto; */
+    background-color:#d1cbf1;
+}
+
+li{
+    list-style: none;
+}

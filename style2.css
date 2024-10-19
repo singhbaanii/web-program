@@ -1,0 +1,52 @@
+body {
+    font-family: Roboto;
+    text-align: center;
+}
+header{
+    padding: 32px;
+}
+
+h1{
+    color: rgb(90, 29, 163);
+}
+
+img{
+    width: 200px;
+    /* margin-bottom: 25px; */
+}
+
+html{
+    background-color: rgb(216, 204, 223);
+}
+
+main{
+    width: 700px;
+    margin: auto;
+    background-color: rgb(88, 54, 144);
+    padding: 32px;
+    border-radius: 5px;
+    text-align: left;
+    color: aliceblue;
+}
+
+a{
+    background-color: bisque;
+    padding: 2px;
+    border-radius: 5px;
+    text-decoration: none;
+    
+}
+
+p.yellow{
+    color: blanchedalmond;
+    border-left: 5px solid;
+    padding: 5px;
+}
+
+p.space{
+    margin-left: 10px;
+}
+
+footer{
+    padding: 20px;
+}
