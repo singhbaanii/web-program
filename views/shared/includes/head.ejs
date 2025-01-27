@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="/styles/navigation.css">
+    <script src="/scripts/mobile.js" defer></script>
+
+    <!-- here we don't have /public/styles/base.css but just /styles/base.css cuz the public folder is not part of the path
+    instead, this this is the path to which a request will be sent and thanks to our 'static' middleware,
+    express will look into the public folder and see if it finds a path in there that satisfies this request path.-->
