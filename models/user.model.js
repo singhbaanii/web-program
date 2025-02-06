@@ -21,7 +21,7 @@ class User {
     return db
       .getDb()
       .collection('users')
-      .findOne({ _id: uid }, { projection: { password: 0 } });
+      .findOne({ _id: uid }, { projection: { password: 0 } }); //we exclude password 
   }
 
   getUserWithSameEmail() {

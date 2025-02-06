@@ -11,7 +11,7 @@ function updateImagePreview() {
 
   const pickedFile = files[0];
 
-  imagePreviewElement.src = URL.createObjectURL(pickedFile);
+  imagePreviewElement.src = URL.createObjectURL(pickedFile); //URL is a built in frontend js class
   imagePreviewElement.style.display = 'block';
 }
 

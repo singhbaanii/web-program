@@ -1,6 +1,6 @@
 h1 {
   text-align: center;
-  color: var(--color-gray-300);
+  color: var(--color-gray-100);
 }
 
 form {
@@ -13,7 +13,7 @@ form {
 }
 
 form a {
-  color: var(--color-primary-200);
+  color: var(--color-primary-50);
 }
 
 form a:hover,

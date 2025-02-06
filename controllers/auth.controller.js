@@ -41,7 +41,7 @@ async function signup(req, res, next) {
       req.body.postal,
       req.body.city
     ) ||
-    !validation.emailIsConfirmed(req.body.email, req.body['confirm-email'])
+    !validation.emailIsConfirmed(req.body.email, req.body['confirm-email']) // for dot notation we cant use '-' so we use [ ]
   ) {
     sessionFlash.flashDataToSession(
       req,
@@ -66,7 +66,7 @@ async function signup(req, res, next) {
     req.body.city
   );
 
-  try {
+  try { //inbuit error handling is not applied for asynchronus function therefor we must use try and catch
     const existsAlready = await user.existsAlready();
 
     if (existsAlready) {
@@ -84,7 +84,7 @@ async function signup(req, res, next) {
     }
 
     await user.signup();
-  } catch (error) {
+  } catch (error) { //in catch to use default error handling middlewear we use next to pass the error to it
     next(error);
     return;
   }
@@ -123,7 +123,7 @@ async function login(req, res, next) {
   };
 
   if (!existingUser) {
-    sessionFlash.flashDataToSession(req, sessionErrorData, function () {
+    sessionFlash.flashDataToSession(req, sessionErrorData, function () { //this suncyion is what is passed into action after the session is saved
       res.redirect('/login');
     });
     return;

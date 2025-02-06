@@ -35,8 +35,8 @@ class Cart {
     }
 
     if (deletableCartItemProductIds.length > 0) {
-      this.items = this.items.filter(function (item) {
-        return deletableCartItemProductIds.indexOf(item.product.id) < 0;
+      this.items = this.items.filter(function (item) { //filter fuction like map inbuilt returns true if u want to keep an item and false if u want to drop it 
+        return deletableCartItemProductIds.indexOf(item.product.id) < 0; //index of returns value of index of element from an array
       });
     }
 
@@ -61,11 +61,11 @@ class Cart {
       const item = this.items[i];
       if (item.product.id === product.id) {
         cartItem.quantity = +item.quantity + 1;
-        cartItem.totalPrice = item.totalPrice + product.price;
+        cartItem.totalPrice = item.totalPrice + product.price; //updates the price for that item id has multiple products
         this.items[i] = cartItem;
 
         this.totalQuantity++;
-        this.totalPrice += product.price;
+        this.totalPrice += product.price; //updates the price for whole cart
         return;
       }
     }
@@ -87,12 +87,12 @@ class Cart {
 
         this.totalQuantity = this.totalQuantity + quantityChange;
         this.totalPrice += quantityChange * item.product.price;
-        return { updatedItemPrice: cartItem.totalPrice };
+        return { updatedItemPrice: cartItem.totalPrice, updateItemQuantity: cartItem.quantity}; //
       } else if (item.product.id === productId && newQuantity <= 0) {
-        this.items.splice(i, 1);
+        this.items.splice(i, 1);  //1 is the number of items that should be removed starting at the index of i
         this.totalQuantity = this.totalQuantity - item.quantity;
         this.totalPrice -= item.totalPrice;
-        return { updatedItemPrice: 0 };
+        return { updatedItemPrice: 0, updateItemQuantity: 0 }; //
       }
     }
   }

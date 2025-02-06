@@ -11,10 +11,10 @@ async function addToCart() {
       method: 'POST',
       body: JSON.stringify({
         productId: productId,
-        _csrf: csrfToken
+        _csrf: csrfToken //must add csrf token cuz only in a get request we can skip
       }),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json' //header our back end code looks for to parse the incoming request data
       }
     });
   
@@ -38,3 +38,4 @@ async function addToCart() {
 }
 
 addToCartButtonElement.addEventListener('click', addToCart);
+

@@ -19,6 +19,7 @@ main {
 }
 
 #logo a {
+  font-family: "Dancing Script", "Montserrat", "sans-serif";
   font-weight: bold;
   font-size: 2rem;
 }
@@ -78,7 +79,7 @@ main {
   align-items: center;
 }
 
-#mobile-menu.open {
+#mobile-menu.open { /* targets the element id mobile-menu with the open class cuz there is no space after '.' , if there was space it would target descendents on mobile menu element id with class open */
   display: flex;
 }
 
@@ -94,13 +95,13 @@ main {
   color: var(--color-primary-100);
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 48rem) {  /* applies only for desktop or larde screens */
   main {
     margin-top: 0;
   }
 
   #main-header {
-    position: static;
+    position: static; /* static means the element is positioned according to the normal flow of the document. */
   }
 
   #main-header nav {

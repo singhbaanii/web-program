@@ -19,7 +19,7 @@
   border: none;
 }
 
-.cart-product-price {
+.cart-product-price, .cart-updated-quantity, .product-price-quantity {
   font-style: italic;
   color: var(--color-gray-300);
 }
@@ -28,7 +28,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; /* the default of strech is overwritten */
 }
 
 #cart-total p {
@@ -37,7 +37,7 @@
   color: var(--color-primary-500);
 }
 
-#cart-total #cart-total-fallback {
+#cart-total #cart-total-fallback {  /* need to me more specific cuz otherwise the cart-total p gets prioirty */
   font-size: 1rem;
   font-weight: normal;
 }

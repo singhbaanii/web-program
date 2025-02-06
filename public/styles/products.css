@@ -1,25 +1,29 @@
 #products-grid {
   margin: var(--space-8) auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); /* autofill chooses the no of products based on screen width based on the minimum value of each column, 1fr means the width shd be same for every product */
+  gap: var(--space-4); /* gap adds spacing for bith columns and rows */
 }
 
 .product-item {
   border-radius: var(--border-radius-medium);
   text-align: center;
   background-color: var(--color-gray-600);
-  overflow: hidden;
+  overflow: hidden; /* makes sure the cutoff parts like in border radius are hidden */
+}
+
+.highlight{
+  color: var(--color-primary-500);;
 }
 
 .product-item img {
   width: 100%;
   height: 10rem;
-  object-fit: cover;
+  object-fit: cover; /* so its cropped appropriately and is not distorted */
 }
 
 .product-item-content {
-  padding: var(--space-4);
+  padding: var(--space-4); /* makes sure image fully cob=vers box and no space */
 }
 
 .product-item-content h2 {
@@ -56,10 +60,10 @@
 #product-description {
   background-color: var(--color-primary-500-bg);
   padding: var(--space-8);
-  white-space: pre-wrap;
+  white-space: pre-wrap; /* shows the text area exactly as we entered it with line breaks or space */
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 48rem) { /* for bigger screens */
   #product-details header {
     display: flex;
   }
@@ -67,7 +71,7 @@
   #product-details img {
     width: 20rem;
     height: 15rem;
-    transform: rotateZ(-10deg);
+    /* transform: rotateZ(-10deg); */
     margin: var(--space-8);
   }
 

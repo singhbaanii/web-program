@@ -6,8 +6,9 @@ class Product {
   constructor(productData) {
     this.title = productData.title;
     this.summary = productData.summary;
-    this.price = +productData.price;
+    this.price = +productData.price; //+ forces it to convert to a number
     this.description = productData.description;
+    this.quantity = +productData.quantity;
     this.image = productData.image; // the name of the image file
     this.updateImageData();
     if (productData._id) {
@@ -15,7 +16,7 @@ class Product {
     }
   }
 
-  static async findById(productId) {
+  static async findById(productId) { 
     let prodId;
     try {
       prodId = new mongodb.ObjectId(productId);
@@ -29,19 +30,19 @@ class Product {
       .findOne({ _id: prodId });
 
     if (!product) {
-      const error = new Error('Could not find product with provided id.');
-      error.code = 404;
+      const error = new Error('Could not find product with provided id.'); //the built in 'error' class which here generates a new JS object with some internal error info and our own custom message 
+      error.code = 404; //404 is not found code
       throw error;
     }
 
     return new Product(product);
   }
 
-  static async findAll() {
+  static async findAll() { //static so that we dont need to instantiate it but can rather look for product data instead
     const products = await db.getDb().collection('products').find().toArray();
 
-    return products.map(function (productDocument) {
-      return new Product(productDocument);
+    return products.map(function (productDocument) { //mapis a utility method u can execute on any array in js. Map takes a fuction and executes it on every element in the array 
+      return new Product(productDocument); //???????????? we do this to rebuild the image path and image url fields which were not srored in the database so its easrier to move files around
     });
   }
 
@@ -62,8 +63,9 @@ class Product {
   }
 
   updateImageData() {
-    this.imagePath = `product-data/images/${this.image}`;
-    this.imageUrl = `/products/assets/images/${this.image}`;
+    this.imagePath = `product-data/images/${this.image}`; //image path as its stored in the server side backend
+    this.imageUrl = `/products/assets/images/${this.image}`; //image url in the front end used by browser to request the image
+    //the url path defined here is up to the developer, and the backend code for finding the appropriate image needs to be written
   }
 
   async save() {
@@ -72,14 +74,15 @@ class Product {
       summary: this.summary,
       price: this.price,
       description: this.description,
-      image: this.image,
+      image: this.image, //image name
+      quantity: this.quantity
     };
 
     if (this.id) {
       const productId = new mongodb.ObjectId(this.id);
 
       if (!this.image) {
-        delete productData.image;
+        delete productData.image; //we use delete because incase on new image is added we dont want to overrite the old one with null or undefined
       }
 
       await db.getDb().collection('products').updateOne(
@@ -89,7 +92,7 @@ class Product {
         }
       );
     } else {
-      await db.getDb().collection('products').insertOne(productData);
+      await db.getDb().collection('products').insertOne(productData); //insertone returns promise so we await it 
     }
   }
 

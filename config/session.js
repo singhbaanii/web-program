@@ -15,7 +15,7 @@ function createSessionStore() {
 
 function createSessionConfig() {
   return {
-    secret: 'super-secret',
+    secret: '8085070404971733620798198198299650481497',
     resave: false,
     saveUninitialized: false,
     store: createSessionStore(),

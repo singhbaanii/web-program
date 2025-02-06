@@ -1,7 +1,12 @@
 <article class="cart-item">
   <div class="cart-item-info">
     <h2><%= item.product.title %></h2>
-    <p>$<span class="cart-item-price"><%= item.totalPrice.toFixed(2) %></span> <span class="cart-product-price">($<%= item.product.price.toFixed(2) %>)</span></p>
+      <p>€<span class="cart-item-price"><%= item.totalPrice.toFixed(2) %></span> 
+        <span class="product-price-quantity">
+          <span class="cart-product-price">(€<%= item.product.price.toFixed(2) %> x</span> 
+          <span class="cart-updated-quantity" data-productid="<%= item.product.id %>"><%= item.quantity %></span>)
+        </span>
+      </p>
   </div>
 
   <form class="cart-item-management" data-productid="<%= item.product.id %>" data-csrf="<%= locals.csrfToken %>">

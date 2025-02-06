@@ -8,7 +8,7 @@ class Order {
     this.productData = cart;
     this.userData = userData;
     this.status = status;
-    this.date = new Date(date);
+    this.date = new Date(date);  //built in date constructor
     if (this.date) {
       this.formattedDate = this.date.toLocaleDateString('en-US', {
         weekday: 'short',
@@ -52,7 +52,7 @@ class Order {
       .getDb()
       .collection('orders')
       .find({ 'userData._id': uid })
-      .sort({ _id: -1 })
+      .sort({ _id: -1 }) //object ids are made taking time into consideration this is in desc ,ie lastest order first
       .toArray();
 
     return this.transformOrderDocuments(orders);
@@ -82,7 +82,7 @@ class Order {
         status: this.status,
       };
 
-      return db.getDb().collection('orders').insertOne(orderDocument);
+      return db.getDb().collection('orders').insertOne(orderDocument); //dont need to use async await cuz we return
     }
   }
 }

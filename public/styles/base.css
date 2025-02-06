@@ -1,6 +1,11 @@
-* {
+* { 
   box-sizing: border-box;
 }
+/* the '*' selects every single element on the page and box-sizing property tells the browser how to calculate the width 
+and height of an element, border-box means that the padding and border are included inside the element's specified width and height. */
+
+/* its better to use inheritance like in HTML since its more efficient but for styles such as box-sizing which are not inheritable 
+we can use "*" to apply styles individually to each element */
 
 html {
   font-family: "Montserrat", "sans-serif";
@@ -13,12 +18,12 @@ html {
   --color-gray-600: rgb(32, 29, 26);
   --color-gray-700: rgb(31, 26, 22);
 
-  --color-primary-50: rgb(253, 224, 200);
-  --color-primary-100: rgb(253, 214, 183);
-  --color-primary-200: rgb(250, 191, 143);
-  --color-primary-400: rgb(157, 203, 226);
-  --color-primary-500: rgb(154, 224, 231);
-  --color-primary-700: rgb(124, 214, 217);
+  --color-primary-50: rgb(246, 240, 235);
+  --color-primary-100: rgb(223, 240, 250);
+  --color-primary-200: rgb(194, 228, 244);
+  --color-primary-400: rgb(175, 224, 248);
+  --color-primary-500: rgb(141, 189, 209);
+  --color-primary-700: rgb(112, 154, 190);
   --color-primary-200-contrast: rgb(140, 96, 60);
   --color-primary-500-contrast: white;
 
@@ -42,7 +47,7 @@ html {
 body {
   background-color: var(--color-gray-500);
   color: var(--color-gray-100);
-  margin: 0;
+  margin: 0px; 
 }
 
 main {
@@ -113,3 +118,4 @@ a {
   background-color: var(--color-primary-500);
   color: var(--color-primary-500-contrast);
 }
+

@@ -1,11 +1,15 @@
+<script src="/scripts/product-management.js" defer></script>
+
 <form action="<%= submitPath %>?_csrf=<%= locals.csrfToken %>" method="POST" enctype="multipart/form-data">
+  <!-- enctype must be change from default yo multipart/form-data if we have a input type file in the form, default is application/x-www-form-urlencoded -->
+  <!-- if default enctype is changed to mutlipart/form-data we can't use input type hidden for csrf token. we can add it as a query parameter in the path/URl  -->
   <p>
     <label for="title">Title</label>
-    <input type="text" id="title" name="title" value="<%= product.title %>" required>
+    <input class="product-form-data" type="text" id="title" name="title" value="<%= product.title %>" required>
   </p>
 
   <div id="image-upload-control">
-    <p>
+    <p class="form-data">
       <label for="image">Image</label>
       <input type="file" id="image" name="image" accept="image/png,image/jpg" <% if (imageRequired) { %>required<% } %>>
     </p>
@@ -16,20 +20,27 @@
 
   <p>
     <label for="summary">Summary</label>
-    <input type="text" id="summary" name="summary" value="<%= product.summary %>" required maxlength="250">
+    <input class="product-form-data" type="text" id="summary" name="summary" value="<%= product.summary %>" required maxlength="250">
   </p>
 
   <p>
     <label for="price">Price</label>
-    <input type="number" id="price" name="price" value="<%= product.price %>" min="0.01" step="0.01" required>
+    <input class="product-form-data" type="number" id="price" name="price" value="<%= product.price %>" min="0.01" step="0.01" required>
+  </p>
+
+  <p>
+    <label for="quantity">Quantity</label>
+    <input class="product-form-data" type="number" id="quantity" name="quantity" value="<%= product.quantity %>" min="1" step="1"required>
   </p>
 
   <p>
     <label for="description">Description</label>
-    <textarea id="description" name="description" rows="7" required><%= product.description %></textarea>
+    <textarea class="product-form-data" id="description" name="description" rows="7" required><%= product.description %></textarea>
+    <!-- for textarea we write ejs code not in vale but in bw textarea and w/o line breaks cuz they will be visble on the screen -->
   </p>
 
   <p>
+    <button class="btn btn-alt" name="clean-btn">Clear</button>
     <button type="reset" class="btn btn-alt">Reset</button>
     <button class="btn">Save</button>
   </p>

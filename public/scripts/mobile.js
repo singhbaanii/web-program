@@ -1,8 +1,8 @@
-const mobileMenuBtnElement = document.getElementById('mobile-menu-btn');
+const mobileMenuBtnElement = document.getElementById('mobile-menu-btn'); //we can use DOM cuz its browser side js
 const mobileMenuElement = document.getElementById('mobile-menu');
 
 function toggleMobileMenu() {
-  mobileMenuElement.classList.toggle('open'); //toggle adds a css class if it doesn't exist yet and removes it if it does
+  mobileMenuElement.classList.toggle('open'); //toggle adds a css class if it doesn't exist yet and removes it if it does, here the class is 'open'
 }
 
 mobileMenuBtnElement.addEventListener('click', toggleMobileMenu);

@@ -23,12 +23,12 @@ const ordersRoutes = require('./routes/orders.routes');
 const app = express(); //app object exuting express as a function
 
 app.set('view engine','ejs');
-app.set('views', path.join(__dirname,'views'));//built-in path package allows us to create a path that will be recognized on all operating systems.
+app.set('views', path.join(__dirname,'views')); //built-in path package allows us to create a path that will be recognized on all operating systems.
 
-app.use(express.static('public'));
+app.use(express.static('public')); //static makes all the files available to the web browser with any server side processing. File is served exactly as it is stored on the server
 app.use('/products/assets', express.static('product-data'));
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: false })); //The request body is parsed using the querystring library for the psrt after '?' and it must be in key value pairs w/o any nested objects cux extended is false
+app.use(express.json()); //to extract data from json format in ajax request, like for the app to cart
 
 const sessionConfig = createSessionConfig();
 

@@ -15,8 +15,13 @@
     <form action="/signup" method="POST">
       <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
       <p>
-        <label for="email">E-Mail</label>
-        <input type="email" id="email" name="email" value="<%= inputData.email %>" required>
+        <label for="email">E-Mail</label><!-- LABLE text for the field displayed to the user -->
+        <!-- The FOR sttribute in lable and the ID atrribute in input must be the same as that is what connects both of them,
+          this is helpful when we click the lable the associated input field gets focused.  -->
+        <input type="email" id="email" name="email" value="<%= inputData.email %>" required><!-- REQUIRED field is to make sure its not empty -->
+        <!-- VALUE is the prefilled input in the field which the user can change -->
+        <!-- the NAME atrribute stored on the server as the key that can later which we can later use on the server side
+        to extract the value entered by the user in that input field.  -->
       </p>
       <p>
         <label for="confirm-email">Confirm Email</label>
