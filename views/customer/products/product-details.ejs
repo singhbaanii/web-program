@@ -11,16 +11,20 @@
         <h1><%= product.title %></h1>
         <p><%= product.summary %></p>
         <p>€<%= product.price %></p>
-   <!-- if(product.updatedquantity>10){ 
-          <p>ONLY <span class="highlight"><%= product.quantity %></span> pieaces available!</p>
-        }else{
-          <p>ONLY <span class="highlight"><%= product.quantity %></span> pieaces available!</p>
-      } -->
-        <p>ONLY <span class="highlight"><%= product.quantity %></span> pieaces available!</p>
-        <button class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button>
+
+        <% if (product.quantity === 0) { %>
+          <p class="out-of-stock" id="out-of-stock">Out of Stock</p>
+        <% } else { %>
+          <% if (product.quantity < 10) { %>
+            <p>ONLY <span class="highlight"><%= product.quantity %></span> pieces available!</p>
+          <% } else { %>
+            <p><span class="highlight"><%= product.quantity %></span> pieces available.</p>
+          <% } %>
+          <button class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button>
+        <% } %>
       </div>
     </header>
     
     <p id="product-description"><%= product.description %></p>
   </main>
-<%- include('../../shared/includes/footer') %>
+  <%- include('../../shared/includes/footer') %>

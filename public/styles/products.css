@@ -12,7 +12,7 @@
   overflow: hidden; /* makes sure the cutoff parts like in border radius are hidden */
 }
 
-.highlight{
+.highlight, #out-of-stock{
   color: var(--color-primary-500);;
 }
 

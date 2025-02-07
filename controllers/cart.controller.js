@@ -15,6 +15,25 @@ async function addCartItem(req, res, next) {
 
   const cart = res.locals.cart;
 
+  const existingCartItem = cart.items.find(function(item) {
+    return item.product.id === product.id;
+  });
+  
+  let requestedQuantity;
+  if (existingCartItem) {
+    requestedQuantity = existingCartItem.quantity + 1;
+  } else {
+    requestedQuantity = 1;
+  }
+
+
+  if (requestedQuantity > product.quantity) {
+    return res.status(400).json({
+      message: `Insufficient stock for product: ${product.title}`,
+      availableQuantity: product.quantity
+    });
+  }
+
   cart.addItem(product);
   req.session.cart = cart;
 
@@ -24,13 +43,29 @@ async function addCartItem(req, res, next) {
   });
 }
 
+
 function updateCartItem(req, res) {
   const cart = res.locals.cart;
+  const newQuantity = +req.body.quantity;
 
-  const updatedItemData = cart.updateItem(
-    req.body.productId,
-    +req.body.quantity
-  );
+  const cartItem = cart.items.find(function(item) {
+    return item.product.id === req.body.productId;
+  });
+
+  
+  if (!cartItem) {
+    return res.status(404).json({ message: 'Item not found in cart.' });
+  }
+
+  
+  if (newQuantity > cartItem.product.quantity) { // Check if the requested quantity exceeds the product stock
+    return res.status(400).json({
+      message: `Insufficient stock for product: ${cartItem.product.title}`,
+      maxQuantity: cartItem.product.quantity,
+    });
+  }
+
+  const updatedItemData = cart.updateItem(req.body.productId, newQuantity);
 
   req.session.cart = cart;
 
@@ -44,6 +79,7 @@ function updateCartItem(req, res) {
     },
   });
 }
+
 
 module.exports = {
   addCartItem: addCartItem,

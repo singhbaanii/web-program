@@ -17,13 +17,19 @@
       <p>Total: €<span id="cart-total-price"><%= locals.cart.totalPrice.toFixed(2) %></span></p>
 
       <% if (locals.isAuth) { %>
-        <form action="/orders" method="POST">  <!-- data of the cart is stored on sessions on our database and is sent via the form -->
-          <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
-          <button class="btn">Buy Products</button>
-        </form>
+        <% if (locals.cart.items.length === 0) { %>
+          <p id="cart-total-fallback">Your cart is empty. Add items to your cart before proceeding.</p>
+        <% } else { %>
+          <form action="/orders" method="POST">
+            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+            <button id="buy-products-btn" class="btn">Buy Products</button>
+          </form>
+        <% } %>
       <% } else { %>
         <p id="cart-total-fallback">Log in to proceed and purchase the items.</p>
       <% } %>
     </div>
   </main>
-<%- include('../../shared/includes/footer') %>
+  <%- include('../../shared/includes/footer') %>
+
+ 

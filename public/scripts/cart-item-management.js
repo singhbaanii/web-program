@@ -8,7 +8,10 @@ async function updateCartItem(event) {
   const form = event.target;
   const productId = form.dataset.productid;
   const csrfToken = form.dataset.csrf;
-  const quantity = form.firstElementChild.value;
+  const inputElement = form.firstElementChild;
+  const originalQuantity = inputElement.value;
+  
+  const quantity = inputElement.value;
 
   const cartUpdatedQuantityElement = document.querySelector(
     `.cart-updated-quantity[data-productid="${productId}"]`
@@ -33,7 +36,9 @@ async function updateCartItem(event) {
   }
 
   if (!response.ok) {
-    alert('Something went wrong!');
+    const errorData = await response.json();
+    alert(errorData.message || 'Could not update the cart.');
+    inputElement.value = originalQuantity; // Reset the input to the last valid quantity
     return;
   }
 
@@ -43,14 +48,15 @@ async function updateCartItem(event) {
     form.parentElement.parentElement.remove();
   } else {
     const cartItemTotalPriceElement = form.parentElement.querySelector('.cart-item-price');
-    cartItemTotalPriceElement.textContent = responseData.updatedCartData.updatedItemPrice.toFixed(2);
 
+    cartItemTotalPriceElement.textContent = responseData.updatedCartData.updatedItemPrice.toFixed(2);
     
     cartUpdatedQuantityElement.textContent = responseData.updatedCartData.updateItemQuantity;
+
   }
-
+  
   cartTotalPriceElement.textContent = responseData.updatedCartData.newTotalPrice.toFixed(2);
-
+  
   for (const cartBadgeElement of cartBadgeElements) {
     cartBadgeElement.textContent = responseData.updatedCartData.newTotalQuantity;
   }

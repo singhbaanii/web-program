@@ -1,6 +1,7 @@
 const addToCartButtonElement = document.querySelector('#product-details button');
 const cartBadgeElements = document.querySelectorAll('.nav-items .badge');
 
+
 async function addToCart() {
   const productId = addToCartButtonElement.dataset.productid;
   const csrfToken = addToCartButtonElement.dataset.csrf;
@@ -11,25 +12,24 @@ async function addToCart() {
       method: 'POST',
       body: JSON.stringify({
         productId: productId,
-        _csrf: csrfToken //must add csrf token cuz only in a get request we can skip
+        _csrf: csrfToken
       }),
       headers: {
-        'Content-Type': 'application/json' //header our back end code looks for to parse the incoming request data
+        'Content-Type': 'application/json'
       }
     });
-  
   } catch (error) {
     alert('Something went wrong!');
     return;
   }
-  
+
   if (!response.ok) {
-    alert('Something went wrong!');
+    const errorData = await response.json();
+    alert(errorData.message || 'Could not update the cart.');
     return;
   }
 
   const responseData = await response.json();
-
   const newTotalQuantity = responseData.newTotalItems;
 
   for (const cartBadgeElement of cartBadgeElements) {
