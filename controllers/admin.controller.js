@@ -90,8 +90,21 @@ async function updateOrder(req, res, next) {
   try {
     const order = await Order.findById(orderId);
 
-    order.status = newStatus;
+    if (order.status === 'cancelled') {   // Prevent updates to already-canceled orders
+      return res.status(400).json({ message: 'Cannot update a canceled order' });
+    }
 
+    if (newStatus === 'cancelled') {
+      for (const item of order.productData.items) { // Revert product quantities
+        const product = await Product.findById(item.product.id);
+        if (product) {
+          product.quantity += item.quantity;
+          await product.save();
+        }
+      }
+    }
+
+    order.status = newStatus;
     await order.save();
 
     res.json({ message: 'Order updated', newStatus: newStatus });
@@ -99,6 +112,8 @@ async function updateOrder(req, res, next) {
     next(error);
   }
 }
+
+
 
 module.exports = {
   getProducts: getProducts,

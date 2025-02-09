@@ -23,12 +23,12 @@ async function updateOrder(event) {
       },
     });
   } catch (error) {
-    alert('Something went wrong - could not update order status.');
+    alert(response.message || 'Something went wrong - could not update order status.');
     return;
   }
-  
+
   if (!response.ok) {
-    alert('Something went wrong - could not update order status.');
+    alert('Something went wrong - could not update order status. Cannot update a canceled order.');
     return;
   }
   

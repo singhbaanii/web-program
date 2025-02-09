@@ -1,6 +1,13 @@
 const imagePickerElement = document.querySelector('#image-upload-control input');
 const imagePreviewElement = document.querySelector('#image-upload-control img');
 
+document.getElementById("image").addEventListener("change", function () {
+  if (this.files[0] && this.files[0].size > 2 * 1024 * 1024) { // 2MB limit
+    alert("File is too big! Max size is 2MB.");
+    this.value = ""; // Clear file input
+  }
+});
+
 function updateImagePreview() {
   const files = imagePickerElement.files;
 
