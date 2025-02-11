@@ -7,7 +7,7 @@ class Cart {
     this.totalPrice = totalPrice;
   }
 
-  async updatePrices() {
+  async updatePrices() {  //incase we delete or update a product in the db while the item is already in user cart this function makes sure to update it
     const productIds = this.items.map(function (item) {
       return item.product.id;
     });
@@ -17,8 +17,8 @@ class Cart {
     const deletableCartItemProductIds = [];
 
     for (const cartItem of this.items) {
-      const product = products.find(function (prod) {
-        return prod.id === cartItem.product.id;
+      const product = products.find(function (prod) { //helps us find an object in an array with the help of a function
+        return prod.id === cartItem.product.id;  //returns true if it is one of the items we wanted to find
       });
 
       if (!product) {
@@ -35,8 +35,8 @@ class Cart {
     }
 
     if (deletableCartItemProductIds.length > 0) {
-      this.items = this.items.filter(function (item) { //filter fuction like map inbuilt returns true if u want to keep an item and false if u want to drop it 
-        return deletableCartItemProductIds.indexOf(item.product.id) < 0; //index of returns value of index of element from an array
+      this.items = this.items.filter(function (item) { //The filter method creates a new array by "filtering" elements from the original array, elements are included only if the callback function returns true and excluded if it returns false.
+        return deletableCartItemProductIds.indexOf(item.product.id) < 0; // condition checks whether item.product.id exists in deletableCartItemProductIds, if the element is not found, it returns -1 and the item is kept else it's removed.
       });
     }
 
@@ -61,7 +61,7 @@ class Cart {
       const item = this.items[i];
       if (item.product.id === product.id) {
         cartItem.quantity = +item.quantity + 1;
-        cartItem.totalPrice = item.totalPrice + product.price; //updates the price for that item id has multiple products
+        cartItem.totalPrice = item.totalPrice + product.price; //updates the price for that item id that has multiple products
         this.items[i] = cartItem;
 
         this.totalQuantity++;
@@ -87,7 +87,7 @@ class Cart {
 
         this.totalQuantity = this.totalQuantity + quantityChange;
         this.totalPrice += quantityChange * item.product.price;
-        return { updatedItemPrice: cartItem.totalPrice, updateItemQuantity: cartItem.quantity}; //
+        return { updatedItemPrice: cartItem.totalPrice, updateItemQuantity: cartItem.quantity}; 
       } else if (item.product.id === productId && newQuantity <= 0) {
         this.items.splice(i, 1);  //1 is the number of items that should be removed starting at the index of i
         this.totalQuantity = this.totalQuantity - item.quantity;

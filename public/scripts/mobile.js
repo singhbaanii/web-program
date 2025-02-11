@@ -2,7 +2,7 @@ const mobileMenuBtnElement = document.getElementById('mobile-menu-btn'); //we ca
 const mobileMenuElement = document.getElementById('mobile-menu');
 
 function toggleMobileMenu() {
-  mobileMenuElement.classList.toggle('open'); //toggle adds a css class if it doesn't exist yet and removes it if it does, here the class is 'open'
+  mobileMenuElement.classList.toggle('open'); //toggle adds a css class if it doesn't exist yet and removes it if it does, here the class added is 'open'
 }
 
 mobileMenuBtnElement.addEventListener('click', toggleMobileMenu);

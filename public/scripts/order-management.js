@@ -4,7 +4,7 @@ async function updateOrder(event) {
   event.preventDefault();
   const form = event.target;
 
-  const formData = new FormData(form);
+  const formData = new FormData(form);  //inbuilt helper object helps us extract the data of a form in browser side javascript
   const newStatus = formData.get('status');
   const orderId = formData.get('orderid');
   const csrfToken = formData.get('_csrf');

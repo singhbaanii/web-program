@@ -1,12 +1,19 @@
 const imagePickerElement = document.querySelector('#image-upload-control input');
 const imagePreviewElement = document.querySelector('#image-upload-control img');
+const imageElement = document.getElementById("image");
 
-document.getElementById("image").addEventListener("change", function () {
-  if (this.files[0] && this.files[0].size > 2 * 1024 * 1024) { // 2MB limit
+
+function checkImageSize(){
+  const files = imageElement.files;
+
+  if (files[0] && files[0].size > 2 * 1024 * 1024) { // 2MB size limit
+    imagePreviewElement.style.display = 'none';
     alert("File is too big! Max size is 2MB.");
-    this.value = ""; // Clear file input
+    imageElement.value = ""; // Clear file input
   }
-});
+}
+
+image.addEventListener("change", checkImageSize);
 
 function updateImagePreview() {
   const files = imagePickerElement.files;

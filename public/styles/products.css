@@ -2,7 +2,7 @@
   margin: var(--space-8) auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); /* autofill chooses the no of products based on screen width based on the minimum value of each column, 1fr means the width shd be same for every product */
-  gap: var(--space-4); /* gap adds spacing for bith columns and rows */
+  gap: var(--space-4); /* gap adds spacing for both columns and rows */
 }
 
 .product-item {

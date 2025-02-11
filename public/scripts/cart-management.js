@@ -15,7 +15,7 @@ async function addToCart() {
         _csrf: csrfToken
       }),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json' //extra metadata our backend code looks for to parse the data
       }
     });
   } catch (error) {

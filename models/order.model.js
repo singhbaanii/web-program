@@ -35,12 +35,7 @@ class Order {
   }
 
   static async findAll() {
-    const orders = await db
-      .getDb()
-      .collection('orders')
-      .find()
-      .sort({ _id: -1 })
-      .toArray();
+    const orders = await db.getDb().collection('orders').find().sort({ _id: -1 }).toArray(); //desc order
 
     return this.transformOrderDocuments(orders);
   }
@@ -48,21 +43,14 @@ class Order {
   static async findAllForUser(userId) {
     const uid = new mongodb.ObjectId(userId);
 
-    const orders = await db
-      .getDb()
-      .collection('orders')
-      .find({ 'userData._id': uid })
-      .sort({ _id: -1 }) //object ids are made taking time into consideration this is in desc ,ie lastest order first
-      .toArray();
+    const orders = await db.getDb().collection('orders').find({ 'userData._id': uid }).sort({ _id: -1 }) .toArray();
+    //object ids are made taking time into consideration this is in desc ,ie lastest order first
 
     return this.transformOrderDocuments(orders);
   }
 
   static async findById(orderId) {
-    const order = await db
-      .getDb()
-      .collection('orders')
-      .findOne({ _id: new mongodb.ObjectId(orderId) });
+    const order = await db.getDb().collection('orders').findOne({ _id: new mongodb.ObjectId(orderId) });
 
     return this.transformOrderDocument(order);
   }
@@ -70,15 +58,12 @@ class Order {
   save() {
     if (this.id) {
       const orderId = new mongodb.ObjectId(this.id);
-      return db
-        .getDb()
-        .collection('orders')
-        .updateOne({ _id: orderId }, { $set: { status: this.status } });
+      return db.getDb().collection('orders').updateOne({ _id: orderId }, { $set: { status: this.status } });
     } else {
       const orderDocument = {
         userData: this.userData,
         productData: this.productData,
-        date: new Date(),
+        date: new Date(),  //if u dont pass any value in it it passes current date time snapshot
         status: this.status,
       };
 

@@ -33,7 +33,7 @@ async function createNewProduct(req, res, next) {
 
 async function getUpdateProduct(req, res, next) {
   try {
-    const product = await Product.findById(req.params.id); //id cuz in router we did the path as /:id
+    const product = await Product.findById(req.params.id); //params used to extract values in URL, id cuz in router we did the path as /:id
     res.render('admin/products/update-product', { product: product });
   } catch (error) {
     next(error);
@@ -69,7 +69,7 @@ async function deleteProduct(req, res, next) {
     return next(error);
   }
 
-  res.json({ message: 'Deleted product!' }); //front end js does not support redirect uz the whole point is to stay on the same page so we just respond with a some data
+  res.json({ message: 'Deleted product!' }); //front end js does not support redirect cuz the whole point is to stay on the same page so we just respond with a json data
 }
 
 async function getOrders(req, res, next) {

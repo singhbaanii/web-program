@@ -14,6 +14,7 @@
     <% } %>
     <form action="/signup" method="POST">
       <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+      <!-- special type of input not visible to user, instead sent along with every request. '_csrf' is the special name that the csrf package looks for and the value is set by us though the csrf middleware -->
       <p>
         <label for="email">E-Mail</label><!-- LABLE text for the field displayed to the user -->
         <!-- The FOR sttribute in lable and the ID atrribute in input must be the same as that is what connects both of them,
@@ -21,7 +22,7 @@
         <input type="email" id="email" name="email" value="<%= inputData.email %>" required><!-- REQUIRED field is to make sure its not empty -->
         <!-- VALUE is the prefilled input in the field which the user can change -->
         <!-- the NAME atrribute stored on the server as the key that can later which we can later use on the server side
-        to extract the value entered by the user in that input field.  -->
+        to extract the value entered by the user in that input field. eg- req.body.email  -->
       </p>
       <p>
         <label for="confirm-email">Confirm Email</label>

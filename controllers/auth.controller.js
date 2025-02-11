@@ -5,8 +5,8 @@ const sessionFlash = require('../util/session-flash');
 
 function getSignup(req, res) {
   let sessionData = sessionFlash.getSessionData(req);
-
-  if (!sessionData) {
+  //the session data will be null or undefined if we didnt flash any session data befoe eg- when users frist visits sign up 
+  if (!sessionData) { //thus the default is set to empty strings for when user first visits
     sessionData = {
       email: '',
       confirmEmail: '',
@@ -21,7 +21,7 @@ function getSignup(req, res) {
   res.render('customer/auth/signup', { inputData: sessionData });
 }
 
-async function signup(req, res, next) {
+async function signup(req, res, next) { //uses urlencoded to parse through req objects, the field after req.body."sm" is the name attribute in ejs for that particular input
   const enteredData = {
     email: req.body.email,
     confirmEmail: req.body['confirm-email'],
@@ -47,11 +47,11 @@ async function signup(req, res, next) {
       req,
       {
         errorMessage:
-          'Please check your input. Password must be at least 6 character slong, postal code must be 5 characters long.',
-        ...enteredData,
+          'Please check your input. Password must be at least 6 character slong, postal code must be 5 characters long.', //error message displayed
+        ...enteredData, //'...' is a spread operator adds all the key value pairs in to the object that is flashed on to the session
       },
       function () {
-        res.redirect('/signup');
+        res.redirect('/signup'); //we use redirect instead of render cuz for post with render if u refresh it asks do u want to submit form again
       }
     );
     return;
@@ -115,7 +115,7 @@ async function login(req, res, next) {
     return;
   }
 
-  const sessionErrorData = {
+  const sessionErrorData = { //data passed into flashDataToSession when login info incorrect
     errorMessage:
       'Invalid credentials - please double-check your email and password!',
     email: user.email,
@@ -140,7 +140,7 @@ async function login(req, res, next) {
     return;
   }
 
-  authUtil.createUserSession(req, existingUser, function () {
+  authUtil.createUserSession(req, existingUser, function () {  //function if the 'action' part in the createUserSession which is executed once the session is succesfully stored
     res.redirect('/');
   });
 }

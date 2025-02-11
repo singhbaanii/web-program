@@ -3,7 +3,7 @@ const cartTotalPriceElement = document.getElementById('cart-total-price');
 const cartBadgeElements = document.querySelectorAll('.nav-items .badge');
 
 async function updateCartItem(event) {
-  event.preventDefault();
+  event.preventDefault();  //prevents default submission cuz PATCH
 
   const form = event.target;
   const productId = form.dataset.productid;
@@ -12,10 +12,6 @@ async function updateCartItem(event) {
   const originalQuantity = inputElement.value;
   
   const quantity = inputElement.value;
-
-  const cartUpdatedQuantityElement = document.querySelector(
-    `.cart-updated-quantity[data-productid="${productId}"]`
-  );
 
   let response;
   try {
@@ -48,16 +44,15 @@ async function updateCartItem(event) {
     form.parentElement.parentElement.remove();
   } else {
     const cartItemTotalPriceElement = form.parentElement.querySelector('.cart-item-price');
-
     cartItemTotalPriceElement.textContent = responseData.updatedCartData.updatedItemPrice.toFixed(2);
-    
-    cartUpdatedQuantityElement.textContent = responseData.updatedCartData.updateItemQuantity;
 
+    const cartUpdatedQuantityElement = document.querySelector(`.cart-updated-quantity[data-productid="${productId}"]`);
+    cartUpdatedQuantityElement.textContent = responseData.updatedCartData.updateItemQuantity;
   }
   
   cartTotalPriceElement.textContent = responseData.updatedCartData.newTotalPrice.toFixed(2);
   
-  for (const cartBadgeElement of cartBadgeElements) {
+  for (const cartBadgeElement of cartBadgeElements) { //cuz we use the nav-items file twice once for mobile and once for desktop, thus the badge element is repeated twice
     cartBadgeElement.textContent = responseData.updatedCartData.newTotalQuantity;
   }
 }

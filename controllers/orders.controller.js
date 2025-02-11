@@ -26,11 +26,9 @@ async function addOrder(req, res, next) {
   const order = new Order(cart, userDocument);
 
   try {
-    // Save the order first
-    await order.save();
+    await order.save();  // Save the order first
 
-    // Reduce product quantities in stock after the order is placed
-    for (const item of cart.items) {
+    for (const item of cart.items) {   // Reduce product quantities in stock after the order is placed
       const product = await Product.findById(item.product.id);
       if (product.quantity >= item.quantity) {
         product.quantity -= item.quantity;

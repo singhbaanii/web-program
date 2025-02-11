@@ -11,8 +11,8 @@ class Product {
     this.quantity = +productData.quantity;
     this.image = productData.image; // the name of the image file
     this.updateImageData();
-    if (productData._id) {
-      this.id = productData._id.toString();
+    if (productData._id) {  //when new product is created it will be undefined so we check if product exists already first
+      this.id = productData._id.toString(); 
     }
   }
 
@@ -42,8 +42,8 @@ class Product {
     const products = await db.getDb().collection('products').find().toArray();
 
     return products.map(function (productDocument) { //mapis a utility method u can execute on any array in js. Map takes a fuction and executes it on every element in the array 
-      return new Product(productDocument); //???????????? we do this to rebuild the image path and image url fields which were not srored in the database so its easrier to move files around
-    });
+      return new Product(productDocument); // we do this to rebuild the image path and image url fields which were not srored in the database 
+    });//this transforms an array full of mongodb documents into an full of product objects that follow the blue print defined in the constructor
   }
 
   static async findMultiple(ids) {
@@ -65,7 +65,7 @@ class Product {
   updateImageData() {
     this.imagePath = `product-data/images/${this.image}`; //image path as its stored in the server side backend
     this.imageUrl = `/products/assets/images/${this.image}`; //image url in the front end used by browser to request the image
-    //the url path defined here is up to the developer, and the backend code for finding the appropriate image needs to be written
+    //the url path defined here is up to the us the developer, and the backend code for finding the appropriate image needs to be written
   }
 
   async save() {
@@ -74,7 +74,7 @@ class Product {
       summary: this.summary,
       price: this.price,
       description: this.description,
-      image: this.image, //image name
+      image: this.image, //we store just the image name in db, and derive the folder path for image dynamically in the code so that we have felxibility to change our folder stucture
       quantity: this.quantity
     };
 
@@ -82,7 +82,7 @@ class Product {
       const productId = new mongodb.ObjectId(this.id);
 
       if (!this.image) {
-        delete productData.image; //we use delete because incase on new image is added we dont want to overrite the old one with null or undefined
+        delete productData.image; //we use delete because incase no new image is added we dont want to overrite the old one with null or undefined
       }
 
       await db.getDb().collection('products').updateOne(

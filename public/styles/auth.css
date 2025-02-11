@@ -17,6 +17,6 @@ form a {
 }
 
 form a:hover,
-form a:active {
+form a:active {   /* active is when we click it */
   color: var(--color-primary-400);
 }

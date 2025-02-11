@@ -8,7 +8,8 @@ async function deleteProduct(event) {
   const csrfToken = buttonElement.dataset.csrf;
 
   const response = await fetch('/admin/products/' + productId + '?_csrf=' + csrfToken, { //fetch funtion is ajax used for post or delete request as well
-    method: 'DELETE' //using http method delete, it doesnt have a body sp we add csrf token and ?
+    method: 'DELETE' //using http method delete, it doesnt have a body so we add csrf token and '?'
+    //to use DELETE and PATCH requests we need to use js cuz forms only use POST and GET
   });
 
   if (!response.ok) { //if not a 2## code
