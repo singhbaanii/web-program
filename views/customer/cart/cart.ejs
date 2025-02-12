@@ -15,20 +15,27 @@
     </ul>
     <div id="cart-total">
       <p>Total: €<span id="cart-total-price"><%= locals.cart.totalPrice.toFixed(2) %></span></p>
-
-      <% if (locals.isAuth) { %>
-        <% if (locals.cart.items.length === 0) { %>
-          <p id="cart-total-fallback">Your cart is empty. Add items to your cart before proceeding.</p>
-        <% } else { %>
-          <form action="/orders" method="POST">
-            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
-            <button id="buy-products-btn" class="btn">Buy Products</button>
-          </form>
+    
+      <!-- Cart Message (Controlled via JavaScript) -->
+      <p id="cart-total-fallback" 
+         data-auth="<%= locals.isAuth %>" 
+         style="<%= !locals.isAuth || locals.cart.totalPrice === 0 ? 'display: block;' : 'display: none;' %>">
+        <% if (!locals.isAuth) { %>
+          Log in to proceed and purchase the items.
+        <% } else if (locals.cart.totalPrice === 0) { %>
+          Your cart is empty. Add items to your cart before proceeding.
         <% } %>
-      <% } else { %>
-        <p id="cart-total-fallback">Log in to proceed and purchase the items.</p>
+      </p>
+    
+      <% if (locals.isAuth) { %>
+        <form action="/orders" method="POST" id="order-form"
+              style="<%= locals.cart.totalPrice === 0 ? 'display: none;' : 'display: block;' %>">
+          <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+          <button id="buy-products-btn" class="btn">Buy Products</button>
+        </form>
       <% } %>
     </div>
+    
   </main>
   <%- include('../../shared/includes/footer') %>
 

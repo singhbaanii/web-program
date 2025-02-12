@@ -1,6 +1,8 @@
 const cartItemUpdateFormElements = document.querySelectorAll('.cart-item-management');
 const cartTotalPriceElement = document.getElementById('cart-total-price');
 const cartBadgeElements = document.querySelectorAll('.nav-items .badge');
+const cartFallbackMessage = document.getElementById('cart-total-fallback');
+const orderForm = document.getElementById('order-form');
 
 async function updateCartItem(event) {
   event.preventDefault();  //prevents default submission cuz PATCH
@@ -50,10 +52,31 @@ async function updateCartItem(event) {
     cartUpdatedQuantityElement.textContent = responseData.updatedCartData.updateItemQuantity;
   }
   
-  cartTotalPriceElement.textContent = responseData.updatedCartData.newTotalPrice.toFixed(2);
+  // Update cart total price
+  const newTotalPrice = responseData.updatedCartData.newTotalPrice;
+  cartTotalPriceElement.textContent = newTotalPrice.toFixed(2);
   
   for (const cartBadgeElement of cartBadgeElements) { //cuz we use the nav-items file twice once for mobile and once for desktop, thus the badge element is repeated twice
     cartBadgeElement.textContent = responseData.updatedCartData.newTotalQuantity;
+  }
+
+  updateCartMessage(newTotalPrice); // Show or hide cart message and order button dynamically
+}
+
+function updateCartMessage(totalPrice) {
+  const isAuthenticated = cartFallbackMessage.dataset.auth === "true";
+
+  if (!isAuthenticated) {
+    cartFallbackMessage.textContent = "Log in to proceed and purchase the items.";
+    cartFallbackMessage.style.display = "block";
+    if (orderForm) orderForm.style.display = "none";
+  } else if (totalPrice === 0) {
+    cartFallbackMessage.textContent = "Your cart is empty. Add items to your cart before proceeding.";
+    cartFallbackMessage.style.display = "block";
+    if (orderForm) orderForm.style.display = "none";
+  } else {
+    cartFallbackMessage.style.display = "none";
+    if (orderForm) orderForm.style.display = "block";
   }
 }
 
