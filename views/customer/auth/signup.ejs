@@ -14,7 +14,8 @@
     <% } %>
     <form action="/signup" method="POST">
       <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
-      <!-- special type of input not visible to user, instead sent along with every request. '_csrf' is the special name that the csrf package looks for and the value is set by us though the csrf middleware -->
+      <!-- special type of input not visible to user, instead sent along with every request. '_csrf' is the special name 
+       that the csrf package looks for and the value is set by us though the csrf middleware -->
       <p>
         <label for="email">E-Mail</label><!-- LABLE text for the field displayed to the user -->
         <!-- The FOR sttribute in lable and the ID atrribute in input must be the same as that is what connects both of them,
@@ -35,7 +36,7 @@
       <hr>
       <p>
         <label for="fullname">Full Name</label>
-        <input type="text" id="fullname" name="fullname" value="<%= inputData.fullname %>" required>
+        <input type="text" id="fullname" name="fullname" value="<%=inputData.fullname %>" required>
       </p>
       <p>
         <label for="street">Street</label>

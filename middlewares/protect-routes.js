@@ -10,4 +10,4 @@ function protectRoutes(req, res, next) {
     next();  
   }
   
-  module.exports = protectRoutes;
+  module.exports = protectRoutes; 

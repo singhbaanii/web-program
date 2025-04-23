@@ -62,7 +62,7 @@ class Product {
     });
   }
 
-  updateImageData() {
+  updateImageData() { //this.image is the name of file
     this.imagePath = `product-data/images/${this.image}`; //image path as its stored in the server side backend
     this.imageUrl = `/products/assets/images/${this.image}`; //image url in the front end used by browser to request the image
     //the url path defined here is up to the us the developer, and the backend code for finding the appropriate image needs to be written

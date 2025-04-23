@@ -20,7 +20,9 @@
           <% } else { %>
             <p><span class="highlight"><%= product.quantity %></span> pieces available.</p>
           <% } %>
-          <button class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button>
+          <% if (!locals.isWorker) { %>
+            <button class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button>
+            <% } %>
         <% } %>
       </div>
     </header>

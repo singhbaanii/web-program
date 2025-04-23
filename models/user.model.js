@@ -37,7 +37,7 @@ class User {
   }
 
   async signup() {
-    const hashedPassword = await bcrypt.hash(this.password, 12);
+    const hashedPassword = await bcrypt.hash(this.password, 12); //is the no of salt, defines how strong the password is
 
     await db.getDb().collection('users').insertOne({
       email: this.email,

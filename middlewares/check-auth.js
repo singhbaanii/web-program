@@ -8,6 +8,7 @@ function checkAuthStatus(req, res, next) {
   res.locals.uid = uid;
   res.locals.isAuth = true; //sets isAuth to true is the user in authenticated thus logged in
   res.locals.isAdmin = req.session.isAdmin; 
+  res.locals.isWorker = req.session.isWorker; 
   next();
 }
 

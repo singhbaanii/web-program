@@ -26,7 +26,9 @@ app.set('view engine','ejs'); //sets up ejs for expess to be albe to use
 app.set('views', path.join(__dirname,'views')); //built-in path package allows us to create a path that will be recognized on all operating systems.
 
 app.use(express.static('public')); //static makes all the files available to the web browser without any server side processing. File is served exactly as it is stored on the server
-app.use('/products/assets', express.static('product-data')); //servers uploaded images statically with our specific URL of choice for requesting data that is not the same as the folder stucture on the server, this doesnt give the user information about our folder stucutre with is import for security reasons 
+app.use('/products/assets', express.static('product-data')); //servers uploaded images statically with our specific URL of choice for 
+// requesting data that is not the same as the folder stucture on the server, this doesnt give the user information about our folder 
+// stucutre with is import for security reasons 
 app.use(express.urlencoded({ extended: false })); //handels data that is coming in attached to reqiuest(eg- lets us access req.body fields) specifically form submission, extened is false so it only supports regualr form submission
 app.use(express.json()); //to extract data from json format in ajax request, like for the app to cart
 
