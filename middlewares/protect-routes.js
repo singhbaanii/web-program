@@ -3,11 +3,13 @@ function protectRoutes(req, res, next) {
       return res.redirect('/401');
     }
   
-    if (req.path.startsWith('/admin') && !res.locals.isAdmin) {
-      return res.redirect('/403');
+    if (req.baseUrl.startsWith('/admin')) {
+      if (!res.locals.user || res.locals.user.role !== 'admin') {
+        return res.redirect('/403');
+      }
     }
   
     next();  
   }
   
-  module.exports = protectRoutes; 
+  module.exports = protectRoutes;
