@@ -2,23 +2,23 @@ const express = require('express');
 
 const adminController = require('../controllers/admin.controller');
 const imageUploadMiddleware = require('../middlewares/image-upload');
+const checkAuth = require('../middlewares/check-auth');
+const authorize = require('../middlewares/authorize');
 
 const router = express.Router();
 
-router.get('/products', adminController.getProducts); // /admin/products
+router.use(checkAuth);
 
-router.get('/products/new', adminController.getNewProduct);
+// Products management
+router.get('/products', authorize('products', 'read'), adminController.getProducts); // /admin/products
+router.get('/products/new', authorize('products', 'create'), adminController.getNewProduct);
+router.post('/products', imageUploadMiddleware, authorize('products', 'create'), adminController.createNewProduct);
+router.get('/products/:id', authorize('products', 'read'), adminController.getUpdateProduct);
+router.post('/products/:id', imageUploadMiddleware, authorize('products', 'update'), adminController.updateProduct);
+router.delete('/products/:id', authorize('products', 'delete'), adminController.deleteProduct);
 
-router.post('/products', imageUploadMiddleware, adminController.createNewProduct);
-
-router.get('/products/:id', adminController.getUpdateProduct);
-
-router.post('/products/:id', imageUploadMiddleware, adminController.updateProduct);
-
-router.delete('/products/:id', adminController.deleteProduct);
-
-router.get('/orders', adminController.getOrders);
-
-router.patch('/orders/:id', adminController.updateOrder);
+// Orders management
+router.get('/orders', authorize('orders', 'read'), adminController.getOrders);
+router.patch('/orders/:id', authorize('orders', 'update'), adminController.updateOrder);
 
 module.exports = router;

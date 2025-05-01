@@ -16,7 +16,7 @@
     <div id="cart-total">
       <p>Total: €<span id="cart-total-price"><%= locals.cart.totalPrice.toFixed(2) %></span></p>
 
-      <% if (locals.isAuth) { %>
+      <% if (user) { %>
         <% if (locals.cart.items.length === 0) { %>
           <p id="cart-total-fallback">Your cart is empty. Add items to your cart before proceeding.</p>
         <% } else { %>

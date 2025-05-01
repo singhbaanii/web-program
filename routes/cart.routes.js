@@ -1,13 +1,17 @@
 const express = require('express');
 
 const cartController = require('../controllers/cart.controller');
+const checkAuth = require('../middlewares/check-auth');
+const authorize = require('../middlewares/authorize');
 
 const router = express.Router();
 
-router.get('/', cartController.getCart); // /cart/
+router.use(checkAuth);
 
-router.post('/items', cartController.addCartItem); // /cart/items
+router.get('/', authorize('cart', 'read'), cartController.getCart); // /cart/
 
-router.patch('/items', cartController.updateCartItem);
+router.post('/items', authorize('cart', 'create'), cartController.addCartItem); // /cart/items
+
+router.patch('/items', authorize('cart', 'update'), cartController.updateCartItem);
 
 module.exports = router;

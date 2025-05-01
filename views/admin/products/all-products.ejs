@@ -9,7 +9,13 @@
     <section>
       <h2>Manage Products</h2>
       <p>
-        <a href="/admin/products/new" class="btn">Add Product</a>
+        <% if (
+          user &&
+          user.permissions.products &&
+          user.permissions.products.includes('create')  //button protection
+        ) { %>
+          <p><a href="/admin/products/new" class="btn">Add Product</a></p>
+        <% } %>
       </p>
     </section>
     <section>

@@ -3,7 +3,7 @@
   <div class="product-item-content">
     <h2><%= product.title %></h2>
     <div class="product-item-actions">
-      <% if (locals.isAdmin && !locals.isWorker) { %>
+      <% if (locals.user && locals.user.role === 'admin') { %>
         <a class="btn btn-alt" href="/admin/products/<%= product.id %>">View & Edit</a>
         <button class="btn btn-alt" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Delete</button>
       <% } else { %>

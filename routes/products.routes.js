@@ -1,11 +1,15 @@
 const express = require('express');
 
 const productsController = require('../controllers/products.controller');
+const checkAuth = require('../middlewares/check-auth');
+const authorize = require('../middlewares/authorize');
 
 const router = express.Router();
 
-router.get('/products', productsController.getAllProducts);
+router.use(checkAuth);
 
-router.get('/products/:id', productsController.getProductDetails);
+router.get('/products', authorize('products', 'read'), productsController.getAllProducts);
+
+router.get('/products/:id', authorize('products', 'read'), productsController.getProductDetails);
 
 module.exports = router;

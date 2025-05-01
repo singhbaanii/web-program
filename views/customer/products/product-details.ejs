@@ -20,7 +20,11 @@
           <% } else { %>
             <p><span class="highlight"><%= product.quantity %></span> pieces available.</p>
           <% } %>
-          <% if (!locals.isWorker) { %>
+          <% if (
+            user &&
+            user.permissions.cart &&
+            user.permissions.cart.includes('create')
+          ) { %>
             <button class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button>
             <% } %>
         <% } %>

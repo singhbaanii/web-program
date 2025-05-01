@@ -1,15 +1,34 @@
-function checkAuthStatus(req, res, next) {
-  const uid = req.session.uid; //uid exists in session if the user logged in as defined in util/authentication.js
+const db = require('../data/database');
+const mongodb = require('mongodb');
+
+async function checkAuthStatus(req, res, next) {
+  const uid = req.session.uid;
 
   if (!uid) {
     return next();
   }
 
-  res.locals.uid = uid;
-  res.locals.isAuth = true; //sets isAuth to true is the user in authenticated thus logged in
-  res.locals.isAdmin = req.session.isAdmin; 
-  res.locals.isWorker = req.session.isWorker; 
-  next();
+  try {
+    const user = await db.getDb().collection('users').findOne({ _id: new mongodb.ObjectId(uid) });
+
+    if (!user) {
+      return next();
+    }
+
+    const roleData = await db.getDb().collection('roles').findOne({ name: user.role });
+
+    res.locals.uid = uid;
+    res.locals.isAuth = true;
+    res.locals.user = {
+      role: roleData && roleData.name ? roleData.name : null,
+      permissions: roleData && roleData.permissions ? roleData.permissions : {}
+    };
+
+    next();
+  } catch (error) {
+    console.error('Error loading auth status:', error);
+    next();
+  }
 }
 
 module.exports = checkAuthStatus;
