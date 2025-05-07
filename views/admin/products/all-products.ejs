@@ -10,9 +10,10 @@
       <h2>Manage Products</h2>
       <p>
         <% if (
-          user &&
-          user.permissions.products &&
-          user.permissions.products.includes('create')  //button protection
+          locals.user &&
+          locals.user.permissions &&
+          locals.user.permissions.products &&
+          locals.user.permissions.products.includes('create')
         ) { %>
           <p><a href="/admin/products/new" class="btn">Add Product</a></p>
         <% } %>

@@ -5,7 +5,12 @@
     </header>
   
     <section class="order-details">
-      <% if (user && user.permissions.orders && user.permissions.orders.includes('update')) { %>
+      <% if (
+        locals.user &&
+        locals.user.permissions &&
+        locals.user.permissions.orders &&
+        locals.user.permissions.orders.includes('update')
+      ) { %>
         <address>
           <p><a href="mailto:<%= order.userData.email %>"><%= order.userData.name %></a></p>
           <p><%= order.userData.address.street %> (<%= order.userData.address.postalCode %> <%= order.userData.address.city %>)</p>
@@ -18,7 +23,12 @@
       </ul>
     </section>
   
-    <% if (user && user.permissions.orders && user.permissions.orders.includes('update')) { %>
+    <% if (
+      locals.user &&
+      locals.user.permissions &&
+      locals.user.permissions.orders &&
+      locals.user.permissions.orders.includes('update')
+    ) { %>
       <section class="order-actions">
         <form>
           <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">

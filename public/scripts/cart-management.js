@@ -37,5 +37,6 @@ async function addToCart() {
   }
 }
 
-addToCartButtonElement.addEventListener('click', addToCart);
-
+if (addToCartButtonElement) {
+  addToCartButtonElement.addEventListener('click', addToCart);
+}

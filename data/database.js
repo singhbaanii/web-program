@@ -1,11 +1,14 @@
 const mongodb = require('mongodb');
+const dotenv = require('dotenv')
+
+dotenv.config() //load .env
 
 const MongoClient = mongodb.MongoClient;
 
 let database;
 
 async function connectToDatabase() {
-  const client = await MongoClient.connect('mongodb://127.0.0.1:27017'); 
+  const client = await MongoClient.connect(process.env.MONGODB_URL); 
   database = client.db('online-shop'); //no return statment cuz async func automattically return the promise
 }
 

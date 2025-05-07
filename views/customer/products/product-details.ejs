@@ -21,12 +21,15 @@
             <p><span class="highlight"><%= product.quantity %></span> pieces available.</p>
           <% } %>
           <% if (
-            user &&
-            user.permissions.cart &&
-            user.permissions.cart.includes('create')
+            locals.user &&
+            locals.user.permissions &&
+            locals.user.permissions.cart &&
+            locals.user.permissions.cart.includes('create')
           ) { %>
-            <button class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button>
-            <% } %>
+            <button id="add-to-cart" class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button>
+            <% } else if (!locals.user){ %>
+            <p><a href="/login">Login</a> to add this item to your cart.</p>
+          <% } %>
         <% } %>
       </div>
     </header>
